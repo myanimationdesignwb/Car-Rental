@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="section vehicle-detail-wrap">
+  <div class="container vehicle-detail">
+    <div class="vehicle-gallery reveal">
+      <img src="{{ url_for('static', filename=vehicle.image_path) }}?v=20261028" alt="{{ vehicle.name }}" loading="lazy" />
+    </div>
+    <div class="vehicle-content reveal">
+      <span class="eyebrow">{{ vehicle.category|capitalize }}</span>
+      <h1>{{ vehicle.name }}</h1>
+      <p>{{ vehicle.description }}</p>
+      <div class="spec-list">
+        <span>Seats: {{ vehicle.seats or 'N/A' }}</span>
+        <span>AC: {{ 'Yes' if vehicle.ac else 'No' }}</span>
+        <span>Fuel: {{ vehicle.fuel_type or 'Diesel/Petrol' }}</span>
+      </div>
+      <div class="pricing-box">
+        <strong>From ₹{{ vehicle.price_per_km }}/km</strong>
+        <small>Estimate, final fare confirmed by us.</small>
+      </div>
+      <ul class="feature-list">
+        {% for feature in vehicle.features %}
+        <li>{{ feature }}</li>
+        {% endfor %}
+      </ul>
+      <div class="card-actions large-actions">
+        <a href="{{ url_for('booking.book_ride') }}?vehicle={{ vehicle.id }}" class="button button-primary">Book now</a>
+        <a href="https://wa.me/919608576670?text=Hello%20Rohit%20Transport%2C%20I%20want%20to%20book%20{{ vehicle.name }}%20from%20Ranchi%20to%20Jamshedpur." target="_blank" rel="noreferrer" class="button button-secondary">WhatsApp this vehicle</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">Similar vehicles</span>
+      <h2>More options for your trip</h2>
+    </div>
+    <div class="vehicle-grid reveal">
+      {% for item in similar_vehicles %}
+      <article class="vehicle-card small-card">
+        <img src="{{ url_for('static', filename=item.image_path) }}?v=20261028" alt="{{ item.name }}" loading="lazy" />
+        <div class="vehicle-body">
+          <h3>{{ item.name }}</h3>
+          <p>From ₹{{ item.price_per_km }}/km</p>
+          <a href="{{ url_for('fleet.vehicle_detail', slug=item.slug) }}" class="button button-secondary">View details</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-copy reveal">
+      <div class="brand-line">Rohit Transport, Tour &amp; Travels</div>
+      <span class="eyebrow">Premium Driver-Provided Travel</span>
+      <h1>Travel Jharkhand in Comfort</h1>
+      <p>Rohit Transport, Tour and Travels offers trusted cars, tempo travellers and buses across Ranchi, Muri and Silli with experienced drivers and transparent pricing.</p>
+      <div class="hero-badges">
+        <span>24x7 Support</span>
+        <span>Clean Vehicles</span>
+        <span>Fair Pricing</span>
+      </div>
+    </div>
+
+    <form class="booking-panel reveal" action="{{ url_for('booking.book_ride') }}" method="get">
+      <div class="panel-header">
+        <h3>Quick booking</h3>
+      </div>
+      <div class="field-grid">
+        <label>
+          <span>Pickup</span>
+          <input type="text" name="pickup" placeholder="Ranchi" />
+        </label>
+        <label>
+          <span>Drop</span>
+          <input type="text" name="drop" placeholder="Jamshedpur" />
+        </label>
+        <label>
+          <span>Date</span>
+          <input type="date" name="trip_date" />
+        </label>
+        <label>
+          <span>Vehicle type</span>
+          <select name="vehicle_type">
+            <option value="car">Car</option>
+            <option value="bus">Bus</option>
+            <option value="commercial">Commercial</option>
+          </select>
+        </label>
+      </div>
+      <button class="button button-primary full-width" type="submit">Check availability / Book now</button>
+    </form>
+  </div>
+</section>
+
+<section class="trust-strip">
+  <div class="container trust-grid">
+    <div class="trust-item reveal"><strong>500+</strong><span>Trips completed</span></div>
+    <div class="trust-item reveal"><strong>4.9/5</strong><span>Happy customers</span></div>
+    <div class="trust-item reveal"><strong>18+</strong><span>Vehicles ready</span></div>
+    <div class="trust-item reveal"><strong>24x7</strong><span>Support</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">Our fleet</span>
+      <h2>Choose the right vehicle for every journey</h2>
+    </div>
+    <div class="fleet-tabs reveal" data-tabs>
+      <button class="tab-button active" data-category="car">Cars</button>
+      <button class="tab-button" data-category="bus">Buses</button>
+      <button class="tab-button" data-category="commercial">Commercial</button>
+    </div>
+    <div class="vehicle-grid reveal">
+      {% for vehicle in featured_vehicles %}
+      <article class="vehicle-card" data-category="{{ vehicle.category }}">
+        <img src="{{ url_for('static', filename=vehicle.image_path) }}?v=20261028" alt="{{ vehicle.name }}" loading="lazy" />
+        <div class="vehicle-body">
+          <div class="vehicle-meta-row">
+            <h3>{{ vehicle.name }}</h3>
+            <span>{{ vehicle.seats or 'N/A' }} seats</span>
+          </div>
+          <p>{{ vehicle.description }}</p>
+          <ul>
+            {% for feature in vehicle.features[:3] %}
+            <li>{{ feature }}</li>
+            {% endfor %}
+          </ul>
+          <div class="vehicle-footer">
+            <strong>From ₹{{ vehicle.price_per_km }}/km</strong>
+            <div class="card-actions">
+              <a class="button button-secondary" href="{{ url_for('fleet.vehicle_detail', slug=vehicle.slug) }}">Book Now</a>
+              <a class="button button-ghost" href="https://wa.me/919608576670?text=Hello%20Rohit%20Transport%2C%20I%20want%20to%20book%20{{ vehicle.name }}%20from%20Ranchi%20to%20Jamshedpur." target="_blank" rel="noreferrer">WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">Services</span>
+      <h2>Travel solutions for every need</h2>
+    </div>
+    <div class="service-grid">
+      <div class="service-card reveal"><h3>Local Rental</h3><p>Short rides and local sightseeing across Jharkhand.</p></div>
+      <div class="service-card reveal"><h3>Outstation</h3><p>Comfortable intercity travel with driver and flexible itinerary.</p></div>
+      <div class="service-card reveal"><h3>Airport Transfer</h3><p>Pickup and drop from Birsa Munda Airport, Ranchi.</p></div>
+      <div class="service-card reveal"><h3>Wedding & Events</h3><p>Premium group travel for family occasions and celebrations.</p></div>
+      <div class="service-card reveal"><h3>Pilgrimage Tours</h3><p>Reliable travel for temples, treks and regional tours.</p></div>
+      <div class="service-card reveal"><h3>Goods Transport</h3><p>Commercial cargo movement and dependable delivery support.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">Popular routes</span>
+      <h2>Indicative fares</h2>
+    </div>
+    <div class="route-grid reveal">
+      {% for route, fare in route_fares.items() %}
+      <div class="route-card">
+        <span>{{ route }}</span>
+        <strong>From ₹{{ fare }}</strong>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">How it works</span>
+      <h2>Easy booking in three steps</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step reveal"><span>01</span><h3>Tell us your trip</h3><p>Share your date, route, and vehicle preference.</p></div>
+      <div class="step reveal"><span>02</span><h3>Receive confirmation</h3><p>We confirm the vehicle availability and fare estimate.</p></div>
+      <div class="step reveal"><span>03</span><h3>Travel stress-free</h3><p>Your driver arrives on time and you enjoy a comfortable ride.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">Testimonials</span>
+      <h2>Customers love our service</h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial reveal"><p>"Professional driver, on-time pickup and very clean vehicle. Highly recommended for Ranchi trips."</p><strong>— Arjun S.</strong></div>
+      <div class="testimonial reveal"><p>"We booked a tempo traveller for wedding guests and everything was smooth from start to finish."</p><strong>— Neha K.</strong></div>
+      <div class="testimonial reveal"><p>"Excellent car rental service for outstation travel with transparent pricing."</p><strong>— Sandeep R.</strong></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container faq-wrap reveal">
+    <div class="section-heading">
+      <span class="eyebrow">FAQ</span>
+      <h2>Common questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item active">
+        <button class="faq-question" type="button">Do you provide driver with the vehicle?</button>
+        <div class="faq-answer">Yes. All our rentals include a professional driver.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" type="button">Can I book for wedding or group travel?</button>
+        <div class="faq-answer">Yes, we handle weddings, pilgrimages, events and group transport.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" type="button">Do you serve outstation routes?</button>
+        <div class="faq-answer">Yes, we serve Ranchi, Silli, Muri and popular outstation routes across Jharkhand.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section cta-section">
+  <div class="container cta-box reveal">
+    <div>
+      <span class="eyebrow">Ready to ride?</span>
+      <h2>Book your next journey with trusted drivers.</h2>
+    </div>
+    <a href="{{ url_for('booking.book_ride') }}" class="button button-primary">Book a ride</a>
+  </div>
+</section>
+{% endblock %}

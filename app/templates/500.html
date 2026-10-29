@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="section">
+  <div class="container narrow-box text-center">
+    <h1>Something went wrong</h1>
+    <p>Our team has been notified and we are fixing the issue.</p>
+    <a href="{{ url_for('main.index') }}" class="button button-primary">Return home</a>
+  </div>
+</section>
+{% endblock %}

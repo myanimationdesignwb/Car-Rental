@@ -1,0 +1,11 @@
+<svg width="520" height="140" viewBox="0 0 520 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="140" rx="28" fill="#0B1320"/>
+  <path d="M28 94C28 78.536 40.536 66 56 66H80L103 42H169C188.882 42 205.106 56.786 205.92 76.382L208 130H56C40.536 130 28 117.464 28 102V94Z" fill="#D4A64F"/>
+  <circle cx="86" cy="95" r="18" fill="#F8E7B7"/>
+  <circle cx="173" cy="95" r="18" fill="#F8E7B7"/>
+  <path d="M81 69H168L186 42H206L177 95H76L81 69Z" fill="#F1C768"/>
+  <path d="M95 112H170" stroke="#F1C768" stroke-width="6" stroke-linecap="round"/>
+  <path d="M248 42H445C453.837 42 461 49.1634 461 58V90C461 98.8366 453.837 106 445 106H248V42Z" fill="#F8F8FB"/>
+  <text x="248" y="75" fill="#0B1320" font-size="24" font-family="Arial, sans-serif" font-weight="700">Rohit Transport</text>
+  <text x="248" y="104" fill="#6D7784" font-size="14" font-family="Arial, sans-serif">Tour and Travels</text>
+</svg>

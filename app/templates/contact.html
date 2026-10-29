@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Contact</span>
+    <h1>Speak to our travel team</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container contact-grid">
+    <div class="contact-card">
+      <h3>Reach us</h3>
+      <p><strong>Phone:</strong> <a href="tel:+919608576670">+91 96085 76670</a></p>
+      <p><strong>WhatsApp:</strong> <a href="https://wa.me/919608576670?text=Hello%20Rohit%20Transport" target="_blank" rel="noreferrer">+91 96085 76670</a></p>
+      <p><strong>Locations:</strong> Ranchi, Muri, Silli, Jharkhand</p>
+    </div>
+    <form class="contact-form" method="post" action="{{ url_for('booking.submit_contact') }}">
+      {{ form.hidden_tag() }}
+      <label>
+        <span>Name</span>
+        {{ form.name(class_='field') }}
+      </label>
+      <label>
+        <span>Phone</span>
+        {{ form.phone(class_='field') }}
+      </label>
+      <label>
+        <span>Message</span>
+        {{ form.message(class_='field', rows='5') }}
+      </label>
+      <button type="submit" class="button button-primary">Send enquiry</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

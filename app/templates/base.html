@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{{ description or 'Premium vehicle rental service in Ranchi with driver included.' }}" />
+    <meta property="og:title" content="{{ title or 'Rohit Transport, Tour and Travels' }}" />
+    <meta property="og:description" content="{{ description or 'Quality car rental in Ranchi, Muri and Silli.' }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="{{ url_for('static', filename='images/site/logo.svg') }}" />
+    <title>{{ title or 'Rohit Transport, Tour and Travels' }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </head>
+  <body data-owner-whatsapp="{{ config.get('OWNER_WHATSAPP', '9608576670') }}">
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div class="topbar-meta">Serving Ranchi, Muri & Silli</div>
+        <a href="tel:+919608576670" class="topbar-phone">+91 96085 76670</a>
+      </div>
+    </header>
+
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="{{ url_for('main.index') }}" class="brand" aria-label="Rohit Transport home">
+          <img src="{{ url_for('static', filename='images/site/logo.svg') }}" alt="Rohit Transport logo" class="brand-logo" />
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="{{ url_for('main.index') }}">Home</a>
+          <a href="{{ url_for('fleet.list_vehicles') }}">Car &amp; BUS</a>
+          <a href="{{ url_for('main.locations') }}">Locations</a>
+          <a href="{{ url_for('main.about') }}">About</a>
+          <a href="{{ url_for('main.contact') }}">Contact</a>
+        </nav>
+        <div class="header-actions">
+          <a href="{{ url_for('booking.book_ride') }}" class="button button-primary">Book Now</a>
+        </div>
+        <button class="menu-toggle" aria-label="Open menu">☰</button>
+      </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-stack container">
+          {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <div class="floating-actions" aria-label="Quick actions">
+      <a class="fab whatsapp" href="https://wa.me/{{ config.get('OWNER_WHATSAPP', '919608576670') }}?text=Hello%20Rohit%20Transport" target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 5.1A9.5 9.5 0 0 0 3.9 16.9L3 21l4.3-1.1A9.5 9.5 0 1 0 18.9 5.1Zm-5.7 2.5c.2 0 .4 0 .6.1.2.1.4.4.5.7.2.5.5 1.5-.1 2.1-.4.4-.8.8-1.1 1.2-.3.4-.4.6-.2 1.1.2.5.8 1.5 1.8 2.4 1.2 1 2.2 1.5 2.8 1.7.6.2 1 .2 1.3-.1.3-.3.6-.7.9-1.1.3-.4.6-.4 1.1-.2.5.2 1.7.8 2.1 1.1.4.3 1.3.9 1.8 1.1.5.2.7.3 1.2.3.4 0 .9-.1 1.5-.2a7.8 7.8 0 0 1 3.4 2.1c-.5 1.2-1.6 2.3-3.2 3.1a7.9 7.9 0 0 1-8.1-.9A8.2 8.2 0 0 1 13.2 7.6Z"/></svg>
+      </a>
+      <a class="fab call" href="tel:+919608576670" aria-label="Call the owner">📞</a>
+    </div>
+
+    <div class="mobile-bar">
+      <a href="tel:+919608576670">Call</a>
+      <a href="https://wa.me/{{ config.get('OWNER_WHATSAPP', '919608576670') }}?text=Hello%20Rohit%20Transport" target="_blank" rel="noreferrer">WhatsApp</a>
+      <a href="{{ url_for('booking.book_ride') }}">Book</a>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <h3>Rohit Transport, Tour and Travels</h3>
+          <p>Comfortable driver-provided vehicles for local rides, outstation trips, weddings and goods transport.</p>
+        </div>
+        <div>
+          <h4>Quick links</h4>
+          <ul>
+            <li><a href="{{ url_for('fleet.list_vehicles') }}">Car &amp; BUS</a></li>
+            <li><a href="{{ url_for('main.locations') }}">Locations</a></li>
+            <li><a href="{{ url_for('main.contact') }}">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:+919608576670">+91 96085 76670</a></li>
+            <li><a href="https://wa.me/919608576670?text=Hello%20Rohit%20Transport" target="_blank" rel="noreferrer">WhatsApp us</a></li>
+            <li><a href="{{ url_for('main.terms') }}">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <span>© 2026 Rohit Transport, Tour and Travels</span>
+        <span><a href="{{ url_for('main.privacy_policy') }}">Privacy Policy</a></span>
+      </div>
+    </footer>
+  </body>
+</html>

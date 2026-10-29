@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Track booking</span>
+    <h1>Check the status of your ride</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow-box">
+    {% if booking %}
+      <div class="booking-status-card">
+        <h2>Booking: {{ booking.booking_ref }}</h2>
+        <p><strong>Status:</strong> {{ booking.status|capitalize }}</p>
+        <p><strong>Vehicle:</strong> {{ booking.vehicle.name }}</p>
+        <p><strong>Route:</strong> {{ booking.pickup_location }} to {{ booking.drop_location }}</p>
+        <p><strong>Pickup:</strong> {{ booking.pickup_date }} at {{ booking.pickup_time }}</p>
+      </div>
+    {% else %}
+      <form class="inline-form" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <label>
+          <span>Booking reference</span>
+          {{ form.booking_ref(class_='field') }}
+        </label>
+        <label>
+          <span>Phone number</span>
+          {{ form.customer_phone(class_='field') }}
+        </label>
+        <button type="submit" class="button button-primary">Track booking</button>
+      </form>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

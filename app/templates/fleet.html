@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Car &amp; BUS</span>
+    <h1>Vehicles for every route and purpose</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container filter-bar">
+    <form method="get" class="filter-form">
+      <select name="category">
+        <option value="all" {% if selected_category == 'all' %}selected{% endif %}>All categories</option>
+        <option value="car" {% if selected_category == 'car' %}selected{% endif %}>Cars</option>
+        <option value="bus" {% if selected_category == 'bus' %}selected{% endif %}>Buses</option>
+        <option value="commercial" {% if selected_category == 'commercial' %}selected{% endif %}>Commercial</option>
+      </select>
+      <select name="min_seats">
+        <option value="">Any seating</option>
+        <option value="4">4+ seats</option>
+        <option value="7">7+ seats</option>
+        <option value="12">12+ seats</option>
+      </select>
+      <select name="ac">
+        <option value="">Any AC</option>
+        <option value="true">AC</option>
+        <option value="false">Non-AC</option>
+      </select>
+      <button type="submit" class="button button-primary">Apply filters</button>
+    </form>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container vehicle-grid">
+    {% for vehicle in vehicles %}
+    <article class="vehicle-card" data-category="{{ vehicle.category }}">
+      <img src="{{ url_for('static', filename=vehicle.image_path) }}?v=20261028" alt="{{ vehicle.name }}" loading="lazy" />
+      <div class="vehicle-body">
+        <div class="vehicle-meta-row">
+          <h3>{{ vehicle.name }}</h3>
+          <span>{{ vehicle.seats or 'N/A' }} seats</span>
+        </div>
+        <p>{{ vehicle.description }}</p>
+        <ul>
+          {% for feature in vehicle.features[:3] %}
+          <li>{{ feature }}</li>
+          {% endfor %}
+        </ul>
+        <div class="vehicle-footer">
+          <strong>From ₹{{ vehicle.price_per_km }}/km</strong>
+          <div class="card-actions">
+            <a class="button button-secondary" href="{{ url_for('fleet.vehicle_detail', slug=vehicle.slug) }}">Book Now</a>
+            <a class="button button-ghost" href="https://wa.me/919608576670?text=Hello%20Rohit%20Transport%2C%20I%20want%20to%20book%20{{ vehicle.name }}%20from%20Ranchi%20to%20Jamshedpur." target="_blank" rel="noreferrer">WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Book a ride</span>
+    <h1>Plan your trip in minutes</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container book-wrap">
+    <form class="booking-form" method="post" novalidate>
+      {{ form.hidden_tag() }}
+      {{ form.honeypot() }}
+      <div class="stepper">
+        <span class="step active">1</span>
+        <span class="step">2</span>
+        <span class="step">3</span>
+      </div>
+
+      <div class="booking-step active">
+        <h2>Trip details</h2>
+        <div class="field-grid">
+          <label>
+            <span>Trip type</span>
+            {{ form.trip_type(class_='field', required=True) }}
+          </label>
+          <label>
+            <span>Pickup</span>
+            {{ form.pickup_location(class_='field', placeholder='Ranchi', required=True) }}
+          </label>
+          <label>
+            <span>Drop</span>
+            {{ form.drop_location(class_='field', placeholder='Jamshedpur', required=True) }}
+          </label>
+          <label>
+            <span>Pickup date</span>
+            {{ form.pickup_date(class_='field', required=True) }}
+          </label>
+          <label>
+            <span>Pickup time</span>
+            {{ form.pickup_time(class_='field', placeholder='09:30', required=True) }}
+          </label>
+          <label>
+            <span>Return date</span>
+            {{ form.return_date(class_='field') }}
+          </label>
+        </div>
+      </div>
+
+      <div class="booking-step">
+        <h2>Select vehicle</h2>
+        <div class="field-grid vehicle-select-grid">
+          {% for vehicle in form.vehicle_id.choices %}
+          <label class="vehicle-choice">
+            <input type="radio" name="vehicle_id" value="{{ vehicle[0] }}" {% if form.vehicle_id.data == vehicle[0] %}checked{% endif %} required />
+            <span>{{ vehicle[1] }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="booking-step">
+        <h2>Contact details</h2>
+        <div class="field-grid">
+          <label>
+            <span>Full name</span>
+            {{ form.customer_name(class_='field', required=True) }}
+          </label>
+          <label>
+            <span>Phone</span>
+            {{ form.customer_phone(class_='field', placeholder='9876543210', required=True) }}
+          </label>
+          <label>
+            <span>Email</span>
+            {{ form.customer_email(class_='field', placeholder='you@example.com') }}
+          </label>
+          <label>
+            <span>Passengers</span>
+            {{ form.passengers(class_='field', placeholder='4', min='1', required=True) }}
+          </label>
+          <label>
+            <span>Estimated distance in km</span>
+            {{ form.estimated_km(class_='field', value='120', min='1', required=True) }}
+          </label>
+          <label>
+            <span>Notes</span>
+            {{ form.notes(class_='field', rows='3') }}
+          </label>
+        </div>
+      </div>
+
+      <div class="booking-actions">
+        <button class="button button-secondary" type="button" data-prev-step style="display: none;">Previous</button>
+        <button class="button button-primary" type="button" data-next-step>Next</button>
+        <button class="button button-primary" type="submit" data-submit-step style="display: none;">Submit booking</button>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}
